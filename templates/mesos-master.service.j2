@@ -6,7 +6,17 @@ After=network.target
 Wants=network.target
 
 [Service]
+{% if stars %}
+ExecStart=/usr/bin/sudo bash -c "/usr/sbin/mesos-master \
+        --zk={{ mesos_zookeeper_masters }} \
+        --ip={{ mesos_ip }} \
+        --cluster={{ mesos_cluster_name }} \
+        --log_dir={{ mesos_log_location }} \
+        --work_dir={{ mesos_work_dir }} \
+        --quorum=1"
+{% else %}
 ExecStart=/usr/bin/mesos-init-wrapper master
+{% endif %}
 Restart=always
 RestartSec=20
 TimeoutSec=300

@@ -59,3 +59,5 @@ mesos_slave_additional_configs: []
   # For example:
   # - name: FOO
   #   value: bar
+
+stars: false

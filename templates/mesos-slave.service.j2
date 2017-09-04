@@ -6,7 +6,15 @@ After=network.target
 Wants=network.target
 
 [Service]
+{% if stars %}
+ExecStart=/usr/sbin/mesos-slave --master={{ mesos_zookeeper_masters }} \
+                                --log_dir={{ mesos_log_location }} \
+                                --work_dir={{ mesos_work_dir }} \
+                                --containerizers={{ mesos_containerizers }} \
+                                --executor_registration_timeout={{ mesos_executor_timeout }}
+{% else %}
 ExecStart=/usr/bin/mesos-init-wrapper slave
+{% endif %}
 KillMode=process
 Restart=always
 RestartSec=20

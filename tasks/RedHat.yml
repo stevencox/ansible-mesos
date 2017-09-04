@@ -1,14 +1,11 @@
 ---
 - name: Add mesosphere repo
-  environment: "{{proxy_env}}"
   yum: name={{ mesosphere_yum_repo }} state=present
 
 - name: Downloading and enable the EPEL repository definitions.
-  environment: "{{proxy_env}}"
   yum: name={{ epel_repo }} state=present
 
 - name: Install os packages
-  environment: "{{proxy_env}}"
   yum: name={{item}} state=present
   with_items:
     - wget
